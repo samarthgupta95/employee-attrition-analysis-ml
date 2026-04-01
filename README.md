@@ -15,11 +15,17 @@ Replacing an employee can cost up to 50–200% of their annual salary, making at
 
 ## 2. Exploratory Data Analysis (EDA) & Key Insights
 
-A detailed EDA was conducted to uncover patterns and relationships between employee behavior and attrition.
+### Data Preparation & Cleaning:
+- Removed **3008 duplicate records** from 14,999 entries to ensure data integrity
+- Checked for **missing/null values** (none significant)
+- Standardized and cleaned **column names for consistency**
+- Analyzed **feature distributions** to understand variable behavior
+- Identified and reviewed **outliers** (especially in workload and tenure)
 
-### Key Findings:
+### Key Insights:
 
 - **Attrition is not random** — it follows clear, measurable patterns
+
 - **Low Satisfaction = High Risk**
   - Employees with satisfaction levels below ~0.5 show significantly higher attrition
 
@@ -46,49 +52,54 @@ A detailed EDA was conducted to uncover patterns and relationships between emplo
 - Removed low-impact features (department, work_accident, promotion_last_5years)
 
 ### Data Splitting Strategy:
-- Train / Validation / Test split used to ensure unbiased model evaluation
-- Validation set used for model tuning
-- Test set kept untouched for final performance evaluation
+- Train / Validation / Test split to ensure unbiased evaluation
+- Validation set used for tuning
+- Test set kept untouched for final performance
 
 ### Model Optimization:
-- Applied **GridSearchCV** to tune hyperparameters across models
-- Ensured optimal balance between bias and variance
+- Applied **GridSearchCV** for hyperparameter tuning
+- Focused on balancing **precision vs recall** for business usability
 
 ---
 
 ## 4. Model Selection & Justification
 
 Three models were evaluated:
-- Decision Tree
-- Random Forest
-- XGBoost
 
-### Performance Comparison:
+### Decision Tree
+- Precision: **0.33**
+- Recall: **0.94**
+- Accuracy: **0.67**
+- F1: **0.41**
+- Insight: High recall but poor precision → too many false alarms
 
-- **Decision Tree**
-  - High recall but very low precision → too many false alarms
+### XGBoost
+- Precision: **0.70**
+- Recall: **0.94**
+- Accuracy: **0.92**
+- F1: **0.80**
+- Insight: Strong performance but slightly less balanced than Random Forest
 
-- **XGBoost**
-  - Balanced performance but lower precision compared to Random Forest
-
-- **Random Forest (Selected Model)**
-  - Best balance between precision and recall
-  - More stable and generalizable performance
+### Random Forest (Selected Model)
+- Precision: **0.93**
+- Recall: **0.92**
+- Accuracy: **0.97**
+- F1: **0.92**
 
 👉 **Why Random Forest?**
-It minimized false alarms while still capturing most attrition cases — making it the most practical for real-world HR use.
+It achieved the best trade-off between precision and recall, minimizing false alarms while still identifying most employees who leave — making it the most practical model for HR deployment.
 
 ---
 
 ## 5. Final Model Performance
 
 - **Accuracy:** 98%
-- **Recall:** 91% → Correctly detects **9 out of 10 employees who leave**
+- **Recall:** 92% → Detects **9 out of 10 employees who leave**
 - **Precision:** 93% → Most flagged employees are actually at risk
 
 ### Confusion Matrix Insight:
-- Very low false positives → HR efforts are not wasted
-- Very low missed cases → most risky employees are identified early
+- Very low false positives → HR efforts remain focused
+- Very low missed cases → high-risk employees are rarely overlooked
 
 ---
 
@@ -97,8 +108,8 @@ It minimized false alarms while still capturing most attrition cases — making 
 The model enables:
 
 - **Proactive intervention** → Identify at-risk employees before resignation
-- **Targeted HR actions** → Focus only on high-risk individuals
-- **Data-driven decisions** → Move from reactive to predictive HR strategy
+- **Targeted HR action** → Focus on high-risk individuals only
+- **Data-driven strategy** → Shift from reactive to predictive HR
 
 👉 Key Insight:
 Attrition is primarily a **workload and engagement problem**, not a compensation problem.
@@ -107,27 +118,25 @@ Attrition is primarily a **workload and engagement problem**, not a compensation
 
 ## 7. Recommendation Snapshot
 
-Based on the analysis and model insights:
-
 ### 1. Enforce Workload Limits
 - Cap project assignments at 5
 - Flag employees exceeding 270 hours/month
 
 ### 2. Focus on Mid-Tenure Employees (3–5 years)
 - Introduce career development plans
-- Improve internal mobility and growth visibility
+- Improve internal mobility
 
 ### 3. Replace Annual Surveys with Quarterly Pulse Checks
-- Track satisfaction trends in real-time
-- Act before disengagement turns into attrition
+- Track satisfaction continuously
+- Act before disengagement escalates
 
 ### 4. Protect High Performers from Burnout
 - Avoid rewarding performance with more workload
-- Introduce non-monetary incentives (flexibility, project choice)
+- Introduce flexibility and non-monetary incentives
 
 ### 5. Deploy the Model as a Continuous HR Tool
 - Integrate into HR workflows
-- Regularly update and retrain with new data
+- Retrain regularly with updated data
 
 ---
 
@@ -137,14 +146,15 @@ Based on the analysis and model insights:
 - Data Visualization (Matplotlib, Seaborn)
 - Machine Learning (Scikit-learn, XGBoost)
 - Model Tuning (GridSearchCV)
+- Model Evaluation Metrics (Recall score, Precision score, F1 score, Accuracy score)
 
 ---
 
 ## Project Assets
 
-- `attrition_analysis.ipynb` → Full analysis and modeling
-- `dataset.csv` → Input dataset
-- `executive_presentation.pdf` → Business-focused summary
+- `attrition_analysis.ipynb` → Full analysis and modeling  
+- `dataset.csv` → Dataset  
+- `executive_presentation.pdf` → Executive summary  
 
 ---
 
@@ -152,4 +162,4 @@ Based on the analysis and model insights:
 
 Attrition at Salifort Motors is **predictable, concentrated, and preventable**.
 
-By combining data analysis with machine learning, organizations can shift from reacting to attrition → to actively preventing it.
+With the right data and model, organizations can move from reacting to attrition → to actively preventing it.
